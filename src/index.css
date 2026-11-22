@@ -1,0 +1,149 @@
+@import 'tailwindcss';
+
+/* ---- Windows 11 design tokens --------------------------------------- */
+:root {
+  --font: 'Segoe UI Variable Text', 'Segoe UI Variable', 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  --accent: #005fb8;
+  --accent-hover: #196ebf;
+  --accent-text: #ffffff;
+  --text: #1b1b1b;
+  --text-2: #5c5c5c;
+  --text-3: #8a8a8a;
+  --mica: #f3f3f3;
+  --layer: #fbfbfb;
+  --card: #ffffff;
+  --stroke: rgba(0, 0, 0, 0.08);
+  --stroke-strong: rgba(0, 0, 0, 0.16);
+  --hover: rgba(0, 0, 0, 0.04);
+  --press: rgba(0, 0, 0, 0.07);
+  --selected: rgba(0, 95, 184, 0.12);
+  --selected-stroke: rgba(0, 95, 184, 0.35);
+  --taskbar: rgba(238, 238, 238, 0.82);
+  --flyout: rgba(242, 242, 242, 0.94);
+  --input: rgba(255, 255, 255, 0.75);
+  --input-stroke-bottom: rgba(0, 0, 0, 0.45);
+  --shadow-window: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.12), 0 28px 56px rgba(0, 0, 0, 0.16);
+  --shadow-flyout: 0 0 0 1px rgba(0, 0, 0, 0.08), 0 8px 16px rgba(0, 0, 0, 0.14), 0 24px 48px rgba(0, 0, 0, 0.16);
+  --close-hover: #c42b1c;
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  --accent: #60cdff;
+  --accent-hover: #5abce8;
+  --accent-text: #000000;
+  --text: #ffffff;
+  --text-2: #cfcfcf;
+  --text-3: #9a9a9a;
+  --mica: #202020;
+  --layer: #272727;
+  --card: #2d2d2d;
+  --stroke: rgba(255, 255, 255, 0.08);
+  --stroke-strong: rgba(255, 255, 255, 0.16);
+  --hover: rgba(255, 255, 255, 0.06);
+  --press: rgba(255, 255, 255, 0.04);
+  --selected: rgba(96, 205, 255, 0.14);
+  --selected-stroke: rgba(96, 205, 255, 0.4);
+  --taskbar: rgba(28, 28, 28, 0.82);
+  --flyout: rgba(36, 36, 36, 0.94);
+  --input: rgba(255, 255, 255, 0.06);
+  --input-stroke-bottom: rgba(255, 255, 255, 0.55);
+  --shadow-window: 0 0 0 1px rgba(255, 255, 255, 0.09), 0 8px 16px rgba(0, 0, 0, 0.32), 0 28px 56px rgba(0, 0, 0, 0.42);
+  --shadow-flyout: 0 0 0 1px rgba(255, 255, 255, 0.08), 0 8px 16px rgba(0, 0, 0, 0.32), 0 24px 48px rgba(0, 0, 0, 0.42);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+
+html, body, #root {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+body {
+  font-family: var(--font);
+  font-size: 14px;
+  color: var(--text);
+  background: #0b1a33;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button { font: inherit; color: inherit; cursor: default; }
+input, textarea { font: inherit; color: inherit; }
+::selection { background: var(--accent); color: var(--accent-text); }
+
+/* ---- Materials --------------------------------------------------------- */
+.mica { background: var(--mica); color: var(--text); }
+.acrylic {
+  background: var(--flyout);
+  backdrop-filter: blur(40px) saturate(160%);
+  -webkit-backdrop-filter: blur(40px) saturate(160%);
+}
+.taskbar-material {
+  background: var(--taskbar);
+  backdrop-filter: blur(40px) saturate(170%);
+  -webkit-backdrop-filter: blur(40px) saturate(170%);
+}
+
+/* Subtle button: transparent until hovered (Fluent "subtle" button). */
+.btn-subtle { border-radius: 4px; background: transparent; transition: background 0.08s; }
+.btn-subtle:hover { background: var(--hover); }
+.btn-subtle:active { background: var(--press); }
+.btn-subtle:disabled { opacity: 0.4; background: transparent; }
+
+.btn-accent {
+  background: var(--accent);
+  color: var(--accent-text);
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: background 0.08s;
+}
+.btn-accent:hover { background: var(--accent-hover); }
+
+.btn-std {
+  background: var(--card);
+  border: 1px solid var(--stroke);
+  border-bottom-color: var(--stroke-strong);
+  border-radius: 4px;
+}
+.btn-std:hover { background: var(--layer); }
+
+.field {
+  background: var(--input);
+  border: 1px solid var(--stroke);
+  border-bottom: 1px solid var(--input-stroke-bottom);
+  border-radius: 4px;
+  outline: none;
+}
+.field:focus { border-bottom: 2px solid var(--accent); background: var(--card); }
+
+/* Scrollbars, thin like Windows 11 */
+.scroll { overflow: auto; scrollbar-width: thin; scrollbar-color: var(--text-3) transparent; }
+.scroll::-webkit-scrollbar { width: 6px; height: 6px; }
+.scroll::-webkit-scrollbar-thumb { background: var(--text-3); border-radius: 3px; }
+
+/* ---- Animations -------------------------------------------------------- */
+@keyframes win-open { from { opacity: 0; transform: scale(0.94); } }
+@keyframes win-close { to { opacity: 0; transform: scale(0.94); } }
+@keyframes flyout-up { from { opacity: 0; transform: translateY(24px); } }
+@keyframes fade-in { from { opacity: 0; } }
+@keyframes pop-in { from { opacity: 0; transform: scale(0.96) translateY(-4px); } }
+@keyframes slide-up-out { to { transform: translateY(-100%); } }
+@keyframes eq { 0%, 100% { transform: scaleY(0.35); } 50% { transform: scaleY(1); } }
+
+.anim-open { animation: win-open 0.18s cubic-bezier(0.1, 0.9, 0.2, 1); }
+.anim-close { animation: win-close 0.14s ease-in forwards; }
+.anim-flyout { animation: flyout-up 0.22s cubic-bezier(0.1, 0.9, 0.2, 1); }
+.anim-fade { animation: fade-in 0.2s ease-out; }
+.anim-pop { animation: pop-in 0.12s ease-out; }
+
+.eq-bar { transform-origin: bottom; animation: eq 0.9s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+.no-select { user-select: none; -webkit-user-select: none; }
